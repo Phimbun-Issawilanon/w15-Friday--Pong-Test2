@@ -34,6 +34,17 @@ class Shooter{
       coolDown = 0;
     }
     coolDown += .5;
+    
+    for(Zombie zom:zombie){
+      if(dist(x,y,zom.x,zom.y)< size-5){
+        fill(255);
+        stroke(0);
+        textAlign(CENTER);
+        textFont(font);
+        text("GAME OVER",width/2,height/2);
+        noLoop();
+      }
+    }
   }
 }
 class Bullet{
@@ -74,7 +85,7 @@ class Zombie{
   
   Zombie(){
     size = 50;
-    x = width/2;
+    x = random(0,width);
     y = 0;
     vel = 2;
     life = 3;
@@ -98,7 +109,7 @@ class Zombie{
         bullet.firing = false;
       }
     }
-    if(dist(s.x,s.y,x,y) > 50){
+    if(dist(s.x,s.y,x,y) > 0){
       x += (s.x-x)*.005;
       y += (s.y-y)*.005;
     } 
@@ -109,12 +120,15 @@ Shooter s;
 Zombie zom;
 ArrayList<Bullet> sBullet = new ArrayList<Bullet>();
 ArrayList<Zombie> zombie = new ArrayList<Zombie>();
+PFont font;
 
 void setup(){
   size(600, 600);
+  font = createFont("a.ttf",120);
   s = new Shooter();
   zombie.add(new Zombie());
 }
+
 void draw(){
   background(50);
   s.display();
@@ -144,7 +158,7 @@ void draw(){
     }
   }
   zombie = tempZom;
-  if(random(1) < 0.007){
+  if(random(1) < 0.005){
     zombie.add(new Zombie());
   }
   
