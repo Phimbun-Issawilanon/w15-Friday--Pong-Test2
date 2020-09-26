@@ -110,8 +110,9 @@ class Zombie{
       }
     }
     if(dist(s.x,s.y,x,y) > 0){
-      x += (s.x-x)*.005;
-      y += (s.y-y)*.005;
+       float angle = atan((s.y-y)/(s.x-x)); 
+      x += cos(angle)*vel;
+      y += sin(angle)*vel;
     } 
   }              
 }
@@ -158,7 +159,7 @@ void draw(){
     }
   }
   zombie = tempZom;
-  if(random(1) < 0.005){
+  if(random(1) < 0.009){
     zombie.add(new Zombie());
   }
   
