@@ -110,11 +110,9 @@ class Zombie{
       }
     }
     if(dist(s.x,s.y,x,y) > 0){
-      float angle = atan((s.y-y)/(s.x-x));
-      float directionX = ((s.x-x)/abs((s.x-x)));
-      float directionY = ((s.y-y)/abs((s.y-y)));
-      x += directionX*abs(cos(angle))*vel;
-      y += directionY*abs(sin(angle))*vel;
+      float angle = atan((s.y-y)/(s.x-x)); 
+      x += cos(angle)*vel;
+      y += sin(angle)*vel;
     } 
   }              
 }
