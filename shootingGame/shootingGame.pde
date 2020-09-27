@@ -37,7 +37,7 @@ class Shooter{
     
     for(Zombie zom:zombie){
       if(dist(x,y,zom.x,zom.y)< size-5){
-        fill(255);
+        fill(255, 0, 0);
         stroke(0);
         textAlign(CENTER);
         textFont(font);
@@ -98,6 +98,23 @@ class Zombie{
     ellipse(x, y, size, size);
   }
   
+  void zombieBounce(Zombie zom){
+    float dist = dist(x,y,zom.x,zom.y);
+    float directionX = (zom.x-x)/abs(zom.x-x);
+    float directionY = (zom.y-y)/abs(zom.y-y);
+      if(dist < size){
+        zom.x += directionX;
+        zom.y += directionY;
+      }
+  }
+  
+  boolean overLap(Zombie zom){
+    float dist = dist(x,y,zom.x,zom.y);
+      if(dist < size){
+        return true;
+      }else{return false;}
+  }
+  
   void update(){
     for(Bullet bullet:sBullet){
       if((x-size/2 <= bullet.x && bullet.x<= x+size/2) && (y-size/2<=bullet.y && bullet.y <= y+size/2)){
@@ -154,12 +171,18 @@ void draw(){
   sBullet = tempBullet;
   
   ArrayList<Zombie> tempZom = new ArrayList<Zombie>();
-  for(Zombie zom : zombie){
-    zom.update();
-    if(zom.life > 0){
-      tempZom.add(zom);
+  for(int i =0;i<zombie.size();i++){
+    for(int j =i+1 ;j<zombie.size();j++){
+      while(zombie.get(i).overLap(zombie.get(j))){
+        zombie.get(i).zombieBounce(zombie.get(j));
+      }
+    }
+    zombie.get(i).update();
+    if(zombie.get(i).life > 0){
+      tempZom.add(zombie.get(i));
     }
   }
+  
   zombie = tempZom;
   if(random(1) < 0.009){
     zombie.add(new Zombie());
