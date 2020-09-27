@@ -1,7 +1,7 @@
 class Shooter{
   int x,y,size;
   float coolDown,vel;
-  boolean right,left,up,down,space,life;
+  boolean right,left,up,down,space;
   Shooter(){
     size = 50;
     x = width/2;
@@ -182,13 +182,12 @@ void draw(){
       tempZom.add(zombie.get(i));
     }
   }
-  
   zombie = tempZom;
   if(random(1) < 0.009){
     zombie.add(new Zombie());
   }
-  
 }
+
 void keyPressed(){
   if(key== CODED){
     if(keyCode == UP){s.up = true;}
@@ -197,6 +196,14 @@ void keyPressed(){
     if(keyCode == RIGHT){s.right = true;}
   }
   if(key == ' '){s.space = true;}
+  if(key == 'r' || key == 'R'){
+    background(50);
+    zombie = new ArrayList<Zombie>();
+    s.size = 50;
+    s.x = width/2;
+    s.y = height-s.size;
+    loop();
+  }
 }
 void keyReleased(){
   if(key== CODED){
