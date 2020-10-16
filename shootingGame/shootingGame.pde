@@ -80,8 +80,8 @@ class Bullet{
 }
 
 class Zombie{
-  float x,y,size,vel;
-  int life;
+  float x,y,size,vel,zoom ;
+  int life ;
   
   Zombie(){
     size = 50;
@@ -119,12 +119,13 @@ class Zombie{
     for(Bullet bullet:sBullet){
       if((x-size/2 <= bullet.x && bullet.x<= x+size/2) && (y-size/2<=bullet.y && bullet.y <= y+size/2)){
         life-=1;
-        fill(255,250,250);
-        stroke(0);
-        ellipseMode(CENTER);
-        ellipse(x, y, size, size);
+        zoom = 1.2;
+        size = size*zoom;
         bullet.firing = false;
+        ellipse(x, y, size, size);
       }
+       
+      
     }
     if(dist(s.x,s.y,x,y) > 0){
       float angle = atan((s.y-y)/(s.x-x));
